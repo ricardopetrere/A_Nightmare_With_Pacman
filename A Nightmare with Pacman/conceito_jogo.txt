@@ -1,0 +1,28 @@
+Conceito de ordem das telas:
+(tá bem parecido com o menino Kelvin, eu sei. É difícil fazer diferente, quando se tem uma base)
+
+- Splash ("Um jogo da empresa <nome>". Se possível, fazer um efeito de fade-in/fade-out)
+- Tile Screen (papel de parede de fundo: Dois dos personagens jogáveis, fugindo de uma sombra no formato do Pac-man)
+	Botões:
+		Jogar
+			RadioButtons:
+				Escolher entre Cliente e Servidor (Colocar configurações de IP e porta num arquivo texto fica mais fácil pra programar)(e jogar singleplayer, singleplayer com IA, splitscreen? Pensar sobre)
+			Escolher personagem (4 disponíveis, se possível colocar botões de seta nas laterais do Sprite, pra poder trocar de personagem)
+			Botão "Começar":
+				Vai esperar a sincronização com outro jogador, aí começa a partida
+				(ir para :Partida:)
+		Menu (talvez)
+			Se possível, controlar volume de jogo (possivelmente não dá sem mexer no volume do PC, aí descarta a ideia)
+			Controlar velocidade de jogo (mexe no delay. Tirar DELAY dos #define)
+		Créditos
+
+
+Partida:
+	Cutscene inicial ()
+	Tela de jogo:
+		Começar com o mapa vazio, e os dois personagens jogáveis aparecendo
+		Surgem os pac-bits (se possível, colocar balõezinhos "O que que tá acontecendo?")
+		Surgem os fantasmas e Pac-man e toca a musiquinha inicial
+		Loop de jogo();
+		Cutscene mostrando eles "bugando a matrix" e saindo do jogo
+		Créditos
