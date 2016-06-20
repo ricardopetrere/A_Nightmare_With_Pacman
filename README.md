@@ -14,4 +14,4 @@ Integrantes:
 
 
 Neste projeto, foi utilizado o arquivo "rede.h", de Kelvin Oliveira
-- https://github.com/kelvingamedev/cold-ww2-header/blob/master/rede.h
+- em https://github.com/kelvingamedev/cold-ww2-header/blob/master/rede.h e https://kelvingamedev.itch.io/coldww2
