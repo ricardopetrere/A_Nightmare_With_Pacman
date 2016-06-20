@@ -1,0 +1,35 @@
+Thumbs.db
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+#*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+# É interessante manter o arquivo libbgi.a no repositório, pra facilitar para as pessoas
+#*.a
+*.lib
+
+# Executables
+#*.exe
+*.out
+*.app
+
+*.layout
+Makefile.win
