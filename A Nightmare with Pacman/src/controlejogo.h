@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include "player.h"
+#include "controle_xinput.h"
+#include "controle_keyboard_mouse.h"
 
 enum ModosDeJogo{
 	NENHUM=-1,SINGLEPLAYER,CLIENT,SERVER,COOP
@@ -29,6 +31,9 @@ struct ControleJogo {
 	Player jogadores[QTD_JOGADORES];
 	int indexplayer1=0;
 	int indexplayer2=1;
+	
+	ControleBase* controles[4];//XINPUT só aceita até 4 controles
+	
 	
 	void CarregaSpritesJogadores(int indexjogador)
 	{
@@ -57,15 +62,18 @@ struct ControleJogo {
 		
 		//Char4
 		CarregaSpritesJogadores(3);
+		
+		controles[0] = new Controle_KeyboardMouse();
+		controles[1] = new Controle_XINPUT(1);
 	}
 	
-	bool TemPlayer2()
-	{
-		return modo_atual!=SINGLEPLAYER&&modo_atual!=NENHUM;
-	}
 	bool TemOnline()
 	{
 		return modo_atual==CLIENT||modo_atual==SERVER;
+	}
+	bool TemPlayer2()
+	{
+		return modo_atual==COOP||TemOnline();
 	}
 };
 ControleJogo config;

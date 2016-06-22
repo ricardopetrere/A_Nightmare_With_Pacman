@@ -59,8 +59,7 @@ class TelaPreJogo2:public TelaBase {
 			{
 				comm.EnviarPacote(ConvertInt(config.indexplayer1));
 				comm.RecebePacote();
-//				std::cout<<comm.pacote[0]<<std::endl;
-				if(CharIsNumber(comm.pacote[0]))// comm.pacote[0]>='0'&&comm.pacote[0]<='9')
+				if(CharIsNumber(comm.pacote[0]))
 				{
 					if(atoi(comm.pacote)!=config.indexplayer2)
 						config.indexplayer2=atoi(comm.pacote);
@@ -90,7 +89,11 @@ class TelaPreJogo2:public TelaBase {
 		}
 		void Eventos_Click()
 		{
-			if(OcorreuClickLButton())
+			Controle_XINPUT* ptr_controlexinput = dynamic_cast<Controle_XINPUT*>(config.controles[1]);
+			if(ptr_controlexinput)
+				ptr_controlexinput->MoverMouse();
+			if(config.controles[0]->ComandoSelecionar())
+//			if(OcorreuClickLButton())
 			{
 				if(btnChangeLeft.CursorEstaEmCima())
 				{
@@ -165,26 +168,41 @@ class TelaPreJogo2:public TelaBase {
 					}
 				}
 			}
-			
-			if(!t_inputusuario.CheckTimeout())
-				return;
-			
-			if(BASE_OcorreuClick(VK_LEFT,LeftPressed))
-			{
-				TrocaImagemPraEsquerda();
-			}
-			else if(BASE_OcorreuClick(VK_RIGHT,RightPressed))
-			{
-				TrocaImagemPraDireita();
-			}
-
-			t_inputusuario.Start();
-			
-			if(OcorreuClickESC())
+//			if(OcorreuClickESC())
+			if(config.controles[0]->ComandoVoltar()||config.controles[1]->ComandoVoltar())
 			{
 				exibindo=false;
 				telamostrando=TELA_PREJOGO;
 			}
+			
+			if(!t_inputusuario.CheckTimeout())
+				return;
+			
+//			if(BASE_OcorreuClick(VK_LEFT,LeftPressed))
+			if(config.controles[0]->ComandoParaEsquerda())
+			{
+				TrocaImagemPraEsquerda();
+			}
+//			else if(BASE_OcorreuClick(VK_RIGHT,RightPressed))
+			else if(config.controles[0]->ComandoParaDireita())
+			{
+				TrocaImagemPraDireita();
+			}
+			
+			if(config.modo_atual==COOP)
+			{
+				if(config.controles[1]->ComandoParaEsquerda(false))
+				{
+					TrocaImagemPraEsquerda(2);
+				}
+				else if(config.controles[1]->ComandoParaDireita(false))
+				{
+					TrocaImagemPraDireita(2);
+				}
+			}
+
+			t_inputusuario.Start();
+			
 		}
 		void OnClosed()
 		{

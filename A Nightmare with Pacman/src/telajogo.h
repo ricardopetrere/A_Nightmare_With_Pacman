@@ -662,7 +662,8 @@ class TelaJogo:public TelaBase {
 			}
 			else
 				Debug=false;
-			if(DownKey_KeyDown())
+			if(config.controles[0]->ComandoParaBaixo())
+//			if(DownKey_KeyDown())
 			{
 				if(player1->PixelsRestantes_X()==0)
 				{
@@ -672,7 +673,8 @@ class TelaJogo:public TelaBase {
 					}
 				}
 			}
-			else if(UpKey_KeyDown())
+			else if(config.controles[0]->ComandoParaCima())
+//			else if(UpKey_KeyDown())
 			{
 				if(player1->PixelsRestantes_X()==0)
 				{
@@ -682,7 +684,8 @@ class TelaJogo:public TelaBase {
 					}
 				}
 			}
-			else if(RightKey_KeyDown())
+			else if(config.controles[0]->ComandoParaDireita())
+//			else if(RightKey_KeyDown())
 			{
 				if(player1->PixelsRestantes_Y()==0)
 				{
@@ -692,7 +695,8 @@ class TelaJogo:public TelaBase {
 					}
 				}
 			}
-			else if(LeftKey_KeyDown())
+			else if(config.controles[0]->ComandoParaEsquerda())
+//			else if(LeftKey_KeyDown())
 			{
 				if(player1->PixelsRestantes_Y()==0)
 				{
@@ -704,7 +708,8 @@ class TelaJogo:public TelaBase {
 			}
 			if(config.modo_atual==COOP)
 			{
-				if(BASE_OcorreuKeyDown('W'))
+				if(config.controles[1]->ComandoParaCima())
+//				if(BASE_OcorreuKeyDown('W'))
 				{
 					if(player2->PixelsRestantes_X()==0)
 					{
@@ -714,7 +719,8 @@ class TelaJogo:public TelaBase {
 						}
 					}
 				}
-				else if(BASE_OcorreuKeyDown('S'))
+				else if(config.controles[1]->ComandoParaBaixo())
+//				else if(BASE_OcorreuKeyDown('S'))
 				{
 					if(player2->PixelsRestantes_X()==0)
 					{
@@ -724,7 +730,8 @@ class TelaJogo:public TelaBase {
 						}
 					}
 				}
-				else if(BASE_OcorreuKeyDown('A'))
+				else if(config.controles[1]->ComandoParaEsquerda())
+//				else if(BASE_OcorreuKeyDown('A'))
 				{
 					if(player2->PixelsRestantes_Y()==0)
 					{
@@ -734,7 +741,8 @@ class TelaJogo:public TelaBase {
 						}
 					}
 				}
-				else if(BASE_OcorreuKeyDown('D'))
+				else if(config.controles[1]->ComandoParaDireita())
+//				else if(BASE_OcorreuKeyDown('D'))
 				{
 					if(player2->PixelsRestantes_Y()==0)
 					{
@@ -744,14 +752,6 @@ class TelaJogo:public TelaBase {
 						}
 					}
 				}
-			}
-			if(OcorreuClickLButton())//Chase
-			{
-//				MudaComportamentoFantasmas(CHASE,true);
-			}
-			else if(OcorreuClickRButton())//Scatter
-			{
-//				MudaComportamentoFantasmas(SCATTER,true);
 			}
 		}
 		void OnClosed()
@@ -776,7 +776,6 @@ void TelaJogo::InicializaVariaveisJogo()
 	t_pellet = Timer(7000);
 	delay_endfear=4000;
 	t_fimdejogo = Timer(4000);
-//	t_mortepacman = Timer(2500);
 	t_mortepacman=Timer(3500);
 	t_resetfase = Timer(1000);
 	qtdMortesPacmanPorFantasmas=0;
@@ -784,7 +783,6 @@ void TelaJogo::InicializaVariaveisJogo()
 	t_wave = Timer(27000);//Pros primeiros estágios. Pro último, são 5 segundos de scatter + infinito de chase
 	delay_trocaparachase=7000;//A partir da 3ª onda, passa a ser 5 segundos
 	t_acabardots=Timer(90000);
-//	t_acabardots=Timer(10000);
 	tempo_para_gameover=5000;
 	t_gameover=Timer(tempo_para_gameover);
 	estado_atual=GHOSTSCATTER;
