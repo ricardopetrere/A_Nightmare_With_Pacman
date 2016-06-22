@@ -77,7 +77,7 @@ void CapturaMainWindow()
 {
 	MainWindow = GetForegroundWindow();
 	ConsoleWindow = GetConsoleWindow();
-	ShowWindow(ConsoleWindow,SW_HIDE);
+//	ShowWindow(ConsoleWindow,SW_HIDE);
 }
 void VerificaUI()//fail-safe
 {
@@ -109,10 +109,11 @@ void InicializacaoPrograma()
 }
 void TerminoPrograma()
 {
+//	ShowWindow(ConsoleWindow,SW_RESTORE);
 	comm.FechaConexaoClient();
 	comm.EncerraWinSock();
 	MainWindow=NULL;
-	ShowWindow(ConsoleWindow,SW_RESTORE);
+//	CloseWindow(ConsoleWindow);
 	ConsoleWindow=NULL;
 	closegraph();
 }

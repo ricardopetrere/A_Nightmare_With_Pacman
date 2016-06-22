@@ -70,7 +70,9 @@ class TelaBase{
 			InitializeComponents();
 			while(exibindo)
 			{
-				#ifdef __DEBUG__
+				#ifdef __TESTE__ //Colocar -D__TESTE__ nos parâmetros do compilador C++
+				EscreveEmConsole("Teste");
+				#elif defined __DEBUG__
 				EscreveEmConsole("Modo Debug");
 				#else
 				EscreveEmConsole("Modo Release");

@@ -66,6 +66,9 @@ class TelaPreJogo:public TelaBase {
 					rbCoop.Checked=true;
 					break;
 			}
+			if(config.modo_atual!=CLIENT&&strcmp(config.ip,"127.0.0.1")!=0)
+				strcpy(config.ip,"127.0.0.1");
+			EscreveEmConsole(config.ip);
 		}
 		void DesenharObjetos()
 		{
@@ -74,18 +77,25 @@ class TelaPreJogo:public TelaBase {
 			rbOnlineClient.Desenhar();
 			rbOnlineServer.Desenhar();
 			rbCoop.Desenhar();
-			txtIP.Desenhar();
-			ExibeTextoPlano(300,80,BLACK,LIGHTGRAY,config.ip);
-			txtPorta.Desenhar();
-			ExibeTextoPlano(300,225,BLACK,DARKGRAY,itoa(config.porta,buf_porta,10));
-			btnPortaMais.Desenhar();
-			btnPortaMenos.Desenhar();
-			if(ptr_elementoselecionado==&txtIP)
-			{
-				setcolor(WHITE);
-				rectangle(txtIP.x-5,txtIP.y-5,txtIP.Right()+5,txtIP.Bottom()+5);
-			}
 			btnProximo.Desenhar();
+			
+			if(config.TemOnline())
+			{
+				if(config.modo_atual==CLIENT)
+				{
+					txtIP.Desenhar();
+					ExibeTextoPlano(300,80,BLACK,LIGHTGRAY,config.ip);
+				}
+				txtPorta.Desenhar();
+				ExibeTextoPlano(300,225,BLACK,DARKGRAY,itoa(config.porta,buf_porta,10));
+				btnPortaMais.Desenhar();
+				btnPortaMenos.Desenhar();
+				if(ptr_elementoselecionado==&txtIP)
+				{
+					setcolor(WHITE);
+					rectangle(txtIP.x-5,txtIP.y-5,txtIP.Right()+5,txtIP.Bottom()+5);
+				}
+			}
 		}
 		void Eventos_Click()
 		{
@@ -153,7 +163,8 @@ class TelaPreJogo:public TelaBase {
 							comm.ServerInit(config.porta);
 							while(!conectou)
 							{
-								if(GetAsyncKeyState(VK_ESCAPE)&0x80)
+								EscreveEmConsole(GetAsyncKeyState(VK_ESCAPE));
+								if(GetAsyncKeyState(VK_ESCAPE))
 									break;
 								if(comm.AceitaConexaoClient())
 									conectou=true;
@@ -183,9 +194,9 @@ class TelaPreJogo:public TelaBase {
 					int n=0;
 					if(tecla=='\b')//backspace
 					{
-						for(n=0;n<16;n++)
+						for(n=1;n<=16;n++)
 						{
-							if(config.ip[n]=='\0'&&n!=0)
+							if(config.ip[n]=='\0')
 							{
 								config.ip[n-1]='\0';
 								break;
@@ -196,9 +207,10 @@ class TelaPreJogo:public TelaBase {
 					{
 						for(n=0;n<16;n++)
 						{
-							if(config.ip[n]=='\0'&&n<16)
+							if(config.ip[n]=='\0')
 							{
 								config.ip[n]=tecla;
+								config.ip[n+1]='\0';//Pra evitar mostrar informação "suja"
 								break;
 							}
 						}
